@@ -1,0 +1,57 @@
+{
+  "name": "@artibet/react-mui-components",
+  "version": "1.0.0",
+  "description": "React MUI components and hooks for inertia.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artibet/react-mui-components.git"
+  },
+  "keywords": [
+    "react",
+    "inertia",
+    "mui",
+    "components",
+    "hooks"
+  ],
+  "author": "artibet",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/artibet/react-mui-components/issues"
+  },
+  "homepage": "https://github.com/artibet/react-mui-components#readme",
+  "devDependencies": {
+    "@babel/core": "^7.20.7",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.1",
+    "@storybook/addon-actions": "^6.5.15",
+    "@storybook/addon-essentials": "^6.5.15",
+    "@storybook/addon-interactions": "^6.5.15",
+    "@storybook/addon-links": "^6.5.15",
+    "@storybook/builder-webpack4": "^6.5.15",
+    "@storybook/manager-webpack4": "^6.5.15",
+    "@storybook/react": "^6.5.15",
+    "@storybook/testing-library": "^0.0.13",
+    "babel-loader": "^8.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.7.1",
+    "@fontsource/roboto": "^4.5.8"
+  },
+  "peerDependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.7.1",
+    "@fontsource/roboto": "^4.5.8"
+  },
+  "dependencies": {}
+}
