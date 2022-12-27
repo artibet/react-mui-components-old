@@ -1,21 +1,33 @@
 import React, { useEffect } from 'react'
 import { Box } from '@mui/material'
-import { LeftBar } from './LeftBar'
 import { Topbar } from './Topbar'
+import { Sidebar } from './Sidebar'
 
-export const SidebarLayout = ({ children }) => {
+// SidebarLayout Context
+export const SidebarLayoutContext = React.createContext()
 
+export const SidebarLayout = ({
+  children,
+  sidebarWidth = 200,
+  sidebarLocation = 'left',
+  breakpoint = 'sm'   // hide permanent sidebar on smaller screens
+}) => {
+
+  // ---------------------------------------------------------------
   // Local state
-  const [toolbarHeight, setToolbarHeight] = React.useState()  // current toolbar's height
-  const [openLeftBar, setOpenLeftBar] = React.useState(false)
+  // ---------------------------------------------------------------
+  const [topbarHeight, setTopbarHeight] = React.useState()  // current toolbar's height
+  const [openSidebar, setOpenSidebar] = React.useState(false) // On small screens
 
-  // Track toolbar height on window resize
+  // ---------------------------------------------------------------
+  // Track topbar height on window resize
+  // ---------------------------------------------------------------
   useEffect(() => {
 
-    // Set toolbar height on mount and on windows size change
+    // Set topbar height on mount and on windows size change
     const handleResize = () => {
-      const toolbarElement = Array.from(document.getElementsByClassName('MuiToolbar-root'))[0]
-      setToolbarHeight(toolbarElement.clientHeight)
+      const topbarElement = Array.from(document.getElementsByClassName('MuiToolbar-root'))[0]
+      setTopbarHeight(topbarElement.clientHeight)
     }
 
     // Set once on mount
@@ -25,24 +37,43 @@ export const SidebarLayout = ({ children }) => {
     window.addEventListener('resize', handleResize)
   }, [])
 
+  // ---------------------------------------------------------------
   // toggle left bar visibility on small devices
-  const toggleLeftBar = () => setOpenLeftBar(!openLeftBar)
+  // ---------------------------------------------------------------
+  const toggleSidebar = () => setOpenSidebar(!openSidebar)
 
+  // ---------------------------------------------------------------
+  // Context data to be exported
+  // ---------------------------------------------------------------
+  const context = {
+    topbarHeight,
+    sidebarWidth,
+    sidebarLocation,
+    openSidebar,
+    toggleSidebar,
+    breakpoint
+  }
+
+
+  // ---------------------------------------------------------------
   // JSX
+  // ---------------------------------------------------------------
   return (
-    <Box sx={{ display: 'flex' }}>
+    <SidebarLayoutContext.Provider value={context} >
+      <Box sx={{ display: 'flex' }}>
 
-      {/* Left bar */}
-      <LeftBar openLeftBar={openLeftBar} toggleLeftBar={toggleLeftBar} />
+        {/* Left bar */}
+        <Sidebar />
 
-      {/* Top bar */}
-      <Topbar height={toolbarHeight} toggleLeftBar={toggleLeftBar} />
+        {/* Top bar */}
+        <Topbar />
 
-      {/* page Content */}
-      <Box sx={{ marginTop: `${toolbarHeight}px` }}>
-        {children}
+        {/* page Content */}
+        <Box sx={{ marginTop: `${topbarHeight}px` }}>
+          {children}
+        </Box>
       </Box>
-    </Box>
+    </SidebarLayoutContext.Provider >
   )
 }
 

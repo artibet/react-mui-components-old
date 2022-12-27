@@ -1,31 +1,46 @@
 import React from 'react'
 import { AppBar, Avatar, Box, IconButton, Toolbar, useMediaQuery, useTheme } from '@mui/material'
 import { MdMenu } from 'react-icons/md'
+import { SidebarLayoutContext } from './SidebarLayout'
 
-export const Topbar = ({ height, toggleLeftBar }) => {
-  console.log(height)
+export const Topbar = () => {
+
   const theme = useTheme()
 
+  // ---------------------------------------------------------------
+  // SidebarLayoutContext data
+  // ---------------------------------------------------------------
+  const {
+    sidebarWidth,
+    topbarHeight,
+    toggleSidebar,
+    breakpoint
+  } = React.useContext(SidebarLayoutContext)
+
+  // ---------------------------------------------------------------
   // STYLES
+  // ---------------------------------------------------------------
   const styles = {
     toolbar: {
-      marginLeft: useMediaQuery(theme.breakpoints.up('sm')) ? '200px' : '0px',
+      marginLeft: useMediaQuery(theme.breakpoints.up({ breakpoint })) ? `${sidebarWidth}px` : '0px',
       backgroundColor: '#00695c'
     },
     logo: {
-      width: `${height * 1.4}px`,
-      height: `${height - 10}px`,
-      display: useMediaQuery(theme.breakpoints.up('sm')) ? 'none' : 'block'
+      width: `${topbarHeight * 1.4}px`,
+      height: `${topbarHeight - 10}px`,
+      display: useMediaQuery(theme.breakpoints.up({ breakpoint })) ? 'none' : 'block'
     },
     menuIcon: {
       color: 'white',
       marginLeft: '-15px',
-      display: useMediaQuery(theme.breakpoints.up('sm')) ? 'none' : 'block'
+      display: useMediaQuery(theme.breakpoints.up(breakpoint)) ? 'none' : 'block'
     }
 
   }
 
+  // ---------------------------------------------------------------
   // JSX
+  // ---------------------------------------------------------------
   return (
     <Box>
       <AppBar
@@ -35,7 +50,7 @@ export const Topbar = ({ height, toggleLeftBar }) => {
         <Toolbar sx={styles.toolbar}>
 
           {/* Side bar toggle icon */}
-          <IconButton sx={styles.menuIcon} onClick={toggleLeftBar}>
+          <IconButton sx={styles.menuIcon} onClick={toggleSidebar}>
             <MdMenu />
           </IconButton>
 

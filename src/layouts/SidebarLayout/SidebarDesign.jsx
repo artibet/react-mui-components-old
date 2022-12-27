@@ -1,6 +1,7 @@
 import React from 'react'
-import { Avatar, Box, ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme } from '@mui/material'
+import { Avatar, Box, ListItemButton, ListItemIcon, ListItemText, useTheme } from '@mui/material'
 import { MdHome, MdInfo, MdViewList } from 'react-icons/md'
+import { Inertia } from '@inertiajs/inertia'
 
 const menuItems = [
   {
@@ -20,7 +21,9 @@ const menuItems = [
   }
 ]
 
-export const LeftBarDesign = () => {
+export const SidebarDesign = () => {
+
+  console.log(window.location.href)
 
   const theme = useTheme()
 
@@ -66,9 +69,9 @@ export const LeftBarDesign = () => {
       {
         menuItems.map((item, index) => (
           <ListItemButton
-            sx={'/about' == item.path ? styles.activeMenuItem : styles.inactiveMenuItem} // Use inertia.page hook to check current url
+            sx={window.location.href.startsWith(item.path) ? styles.activeMenuItem : styles.inactiveMenuItem} // Use inertia.page hook to check current url
             key={index}
-            onClick={() => console.log(item.path)}
+            onClick={() => Inertia.get(item.path)}
           >
             <ListItemIcon sx={styles.menuItemIcon}>{item.icon}</ListItemIcon>
             <ListItemText>{item.label}</ListItemText>
