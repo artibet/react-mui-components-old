@@ -1,7 +1,8 @@
 import React from 'react'
 import { Box, Drawer, Hidden, useMediaQuery, useTheme } from '@mui/material'
+import { LeftBarDesign } from './LeftBarDesign'
 
-export const LeftBar = ({ isSmall }) => {
+export const LeftBar = ({ openLeftBar, toggleLeftBar }) => {
 
   // STYLES
   const theme = useTheme()
@@ -30,18 +31,19 @@ export const LeftBar = ({ isSmall }) => {
           anchor='left'
           PaperProps={{ sx: styles.drawerPaper }}
         >
-          I am the permanent drawer...
+          <LeftBarDesign />
         </Drawer>
       </Hidden>
 
       {/* temporary drawer  */}
       <Drawer
         variant='temporary'
-        open={isSmall}
+        open={openLeftBar}
         anchor='left'
         PaperProps={{ sx: styles.drawerPaper }}
+        onClick={toggleLeftBar}
       >
-        I am temporary drawer...
+        <LeftBarDesign />
       </Drawer>
     </Box >
   )

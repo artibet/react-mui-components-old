@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react'
-import { Box, useTheme } from '@mui/material'
+import { Box } from '@mui/material'
 import { LeftBar } from './LeftBar'
 import { Topbar } from './Topbar'
 
 export const SidebarLayout = ({ children }) => {
 
-  // Hold current toolbar height
-  const [toolbarHeight, setToolbarHeight] = React.useState()
+  // Local state
+  const [toolbarHeight, setToolbarHeight] = React.useState()  // current toolbar's height
+  const [openLeftBar, setOpenLeftBar] = React.useState(false)
 
+  // Track toolbar height on window resize
   useEffect(() => {
 
     // Set toolbar height on mount and on windows size change
@@ -23,22 +25,18 @@ export const SidebarLayout = ({ children }) => {
     window.addEventListener('resize', handleResize)
   }, [])
 
-
-  // small screen flag
-  const [isSmall, setIsSmall] = React.useState(false)
-
-  // toggle small state
-  const toggleIsSmall = () => setIsSmall(!isSmall)
+  // toggle left bar visibility on small devices
+  const toggleLeftBar = () => setOpenLeftBar(!openLeftBar)
 
   // JSX
   return (
     <Box sx={{ display: 'flex' }}>
 
       {/* Left bar */}
-      <LeftBar isSmall={isSmall} />
+      <LeftBar openLeftBar={openLeftBar} toggleLeftBar={toggleLeftBar} />
 
       {/* Top bar */}
-      <Topbar />
+      <Topbar height={toolbarHeight} toggleLeftBar={toggleLeftBar} />
 
       {/* page Content */}
       <Box sx={{ marginTop: `${toolbarHeight}px` }}>
